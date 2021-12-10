@@ -142,10 +142,10 @@ async def yplay(_, message: Message):
         for track in playlist[:2]:
             await mp.download_audio(track)
         if message.chat.type == "private":
-            await message.reply_text(pl)        
+            await message.reply_text(pl)
         elif LOG_GROUP:
             await mp.send_playlist()
-        elif not LOG_GROUP and message.chat.type == "supergroup":
+        elif message.chat.type == "supergroup":
             k=await message.reply_text(pl)
             await mp.delete(k)
 
@@ -154,7 +154,7 @@ async def yplay(_, message: Message):
         if type=="youtube":
             msg = await message.reply_text("⚡️ **Fetching Song From YouTube...**")
             url=yturl
-        elif type=="query":
+        else:
             try:
                 msg = await message.reply_text("⚡️ **Fetching Song From YouTube...**")
                 ytquery=ysearch
@@ -167,8 +167,6 @@ async def yplay(_, message: Message):
                 )
                 print(str(e))
                 return
-        else:
-            return
         ydl_opts = {
             "geo-bypass": True,
             "nocheckcertificate": True
@@ -226,7 +224,7 @@ async def yplay(_, message: Message):
             await message.reply_text(pl)
         if LOG_GROUP:
             await mp.send_playlist()
-        elif not LOG_GROUP and message.chat.type == "supergroup":
+        elif message.chat.type == "supergroup":
             k=await message.reply_text(pl)
             await mp.delete(k)
     await message.delete()

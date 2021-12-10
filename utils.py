@@ -68,7 +68,6 @@ def youtube(url: str) -> str:
         ydl.download([url])
     except Exception as e:
         print(e)
-        pass
     return path.join("downloads", f"{info['id']}.{info['ext']}")
 
 class MusicPlayer(object):
